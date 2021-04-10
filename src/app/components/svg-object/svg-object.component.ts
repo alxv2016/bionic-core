@@ -55,12 +55,13 @@ export class SvgObjectComponent implements AfterViewInit {
       grads,
       {
         opacity: 0,
-        fill: 'blue',
+        fill: 'cyan',
       },
       {
         opacity: 1,
-        fill: 'red',
+        fill: '#DBFF01',
         scaleX: 0.0175,
+        scaleY: 2,
       }
     );
 
