@@ -65,22 +65,21 @@ export class SvgObjectComponent implements AfterViewInit {
     );
 
     gsap.to(this.core.nativeElement, {
-      transformOrigin: '50% 50%',
-      ease: 'back',
-      scale: 0.45,
+      attr: {
+        offset: 0.11,
+      },
       repeat: -1,
+      ease: 'back',
       yoyo: true,
-      yoyoEase: true,
-      duration: 1,
     });
 
     const staggering = gsap.timeline({
       defaults: {
         transformOrigin: '50% 50%',
         ease: 'power2.inOut',
-        duration: 1.25,
+        duration: 0.95,
         repeat: -1,
-        stagger: 0.025,
+        stagger: 0.0125,
         //yoyo: true,
         // yoyoEase: true,
       },
