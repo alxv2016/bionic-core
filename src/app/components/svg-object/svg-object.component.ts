@@ -18,97 +18,114 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 })
 export class SvgObjectComponent implements AfterViewInit {
   @HostBinding('class') class = 'c-svg-object';
-  //@ViewChild('grid') grid!: ElementRef;
-  @ViewChildren('circle', {read: ElementRef}) circle!: QueryList<ElementRef>;
-  @ViewChildren('circle2', {read: ElementRef}) circle2!: QueryList<ElementRef>;
-  @ViewChildren('circle3', {read: ElementRef}) circle3!: QueryList<ElementRef>;
+  @ViewChild('circle') circle!: ElementRef;
+  @ViewChild('core') core!: ElementRef;
+  @ViewChildren('svgPath', {read: ElementRef}) svgPath!: QueryList<ElementRef>;
+  @ViewChildren('svgPath2', {read: ElementRef}) svgPath2!: QueryList<ElementRef>;
+  @ViewChildren('svgPath3', {read: ElementRef}) svgPath3!: QueryList<ElementRef>;
+  @ViewChildren('svgPath4', {read: ElementRef}) svgPath4!: QueryList<ElementRef>;
+  @ViewChildren('grads', {read: ElementRef}) grads!: QueryList<ElementRef>;
   constructor(private element: ElementRef, private render: Renderer2) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
-  // randomize(min: number, max: number) {
-  //   return Math.floor(Math.random() * (max - min + 1)) + min;
-  // }
-
   ngAfterViewInit(): void {
-    const circles = this.circle.map((cir) => cir.nativeElement);
-    const circles2 = this.circle2.map((cir) => cir.nativeElement);
-    const circles3 = this.circle3.map((cir) => cir.nativeElement);
-    const colors = {
-      primary: '#FDCE56',
-      secondary: '#373596',
-      accent1: '#1AFFD6',
-      accent2: '#FF429D',
-    };
+    const svgPaths = this.svgPath.map((cir) => cir.nativeElement);
+    const svgPaths2 = this.svgPath2.map((cir) => cir.nativeElement);
+    const svgPaths3 = this.svgPath3.map((cir) => cir.nativeElement);
+    const svgPaths4 = this.svgPath4.map((cir) => cir.nativeElement);
+    const grads = this.grads.map((cir) => cir.nativeElement);
+
+    const backdrop = gsap.timeline({
+      defaults: {
+        transformOrigin: '50% 50%',
+        ease: 'back',
+        stagger: {
+          amount: 1.25,
+          from: 'end',
+        },
+        repeat: -1,
+        yoyo: true,
+        yoyoEase: true,
+        duration: 4,
+      },
+    });
+
+    backdrop.fromTo(
+      grads,
+      {
+        opacity: 0,
+        fill: 'blue',
+      },
+      {
+        opacity: 1,
+        fill: 'red',
+        scaleX: 0.0175,
+      }
+    );
+
+    gsap.to(this.core.nativeElement, {
+      transformOrigin: '50% 50%',
+      ease: 'back',
+      scale: 0.45,
+      repeat: -1,
+      yoyo: true,
+      yoyoEase: true,
+      duration: 1,
+    });
 
     const staggering = gsap.timeline({
       defaults: {
         transformOrigin: '50% 50%',
-        ease: 'back',
-        duration: 3,
+        ease: 'power2.inOut',
+        duration: 1.25,
         repeat: -1,
-        yoyo: true,
-        yoyoEase: true,
-        stagger: {
-          grid: 'auto',
-          amount: 2.25,
-          from: 0,
-        },
+        stagger: 0.025,
+        //yoyo: true,
+        // yoyoEase: true,
       },
     });
 
     staggering
+      .to(svgPaths, {
+        attr: {
+          d: 'M350 241C350 300.923 301.423 349.5 241.5 349.5C181.577 349.5 133 300.923 133 241',
+        },
+      })
       .to(
-        this.element.nativeElement,
+        svgPaths4,
         {
-          '--progress-end': '100%',
-          ease: 'power2.inOut',
+          attr: {
+            d: 'M426 241C426 343.173 343.173 426 241 426C138.827 426 56 343.173 56 241',
+          },
+        },
+        0.175
+      )
+      .to(
+        svgPaths2,
+        {
+          attr: {
+            d: 'M350 240.5C350 180.577 301.423 132 241.5 132C181.577 132 133 180.577 133 240.5',
+          },
         },
         0
       )
-      .fromTo(
-        circles,
+      .to(
+        svgPaths3,
         {
-          scale: 0.125,
-          fill: colors.secondary,
+          attr: {
+            d: 'M426 241C426 138.827 343.173 56 241 56C138.827 56 56 138.827 56 241',
+          },
         },
-        {
-          scale: 0.425,
-          y: 2,
-          x: 2,
-          fill: colors.primary,
-        },
-        0
+        0.175
       )
-      .fromTo(
-        circles2,
+      .to(
+        this.circle.nativeElement,
         {
-          x: 0,
-          scale: 0.125,
-          fill: colors.secondary,
+          rotate: 360,
+          duration: 4,
         },
-        {
-          x: 2,
-          scale: 0.38,
-          fill: colors.accent1,
-          ease: 'elastic',
-        },
-        0.125
-      )
-      .fromTo(
-        circles3,
-        {
-          x: 0,
-          scale: 0.125,
-          fill: colors.secondary,
-        },
-        {
-          x: -2,
-          scale: 0.38,
-          fill: colors.accent2,
-          ease: 'elastic',
-        },
-        0.145
+        0.185
       );
   }
 }
