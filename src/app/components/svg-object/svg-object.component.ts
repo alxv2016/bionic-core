@@ -20,6 +20,7 @@ export class SvgObjectComponent implements AfterViewInit {
   @HostBinding('class') class = 'c-svg-object';
   @ViewChild('circle') circle!: ElementRef;
   @ViewChild('core') core!: ElementRef;
+  @ViewChild('reactorCore') reactorCore!: ElementRef;
   @ViewChildren('svgPath', {read: ElementRef}) svgPath!: QueryList<ElementRef>;
   @ViewChildren('svgPath2', {read: ElementRef}) svgPath2!: QueryList<ElementRef>;
   @ViewChildren('svgPath3', {read: ElementRef}) svgPath3!: QueryList<ElementRef>;
@@ -60,8 +61,24 @@ export class SvgObjectComponent implements AfterViewInit {
       {
         opacity: 1,
         fill: '#DBFF01',
-        scaleX: 0.0175,
+        scaleX: 0.0125,
         scaleY: 2,
+      }
+    );
+
+    gsap.fromTo(
+      this.reactorCore.nativeElement,
+      {
+        y: -4,
+        x: -4,
+      },
+      {
+        y: 4,
+        x: 4,
+        ease: 'power2.inOut',
+        repeat: -1,
+        duration: 1,
+        yoyo: true,
       }
     );
 
