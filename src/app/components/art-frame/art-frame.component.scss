@@ -72,3 +72,12 @@
     fill: color('carbon');
   }
 }
+
+.warning {
+  display: inline-block;
+  font-size: $legal;
+  line-height: 1.125;
+  text-transform: uppercase;
+  color: color('carbon');
+  font-weight: font-weight('medium');
+}

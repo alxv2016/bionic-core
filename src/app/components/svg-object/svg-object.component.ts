@@ -37,53 +37,16 @@ export class SvgObjectComponent implements AfterViewInit {
       const svgPaths2 = this.svgPath2.map((cir) => cir.nativeElement);
       const svgPaths3 = this.svgPath3.map((cir) => cir.nativeElement);
       const svgPaths4 = this.svgPath4.map((cir) => cir.nativeElement);
-      const grads = this.grads.map((cir) => cir.nativeElement);
 
-      const backdrop = gsap.timeline({
-        defaults: {
-          transformOrigin: '50% 50%',
-          ease: 'back',
-          force3D: true,
-          stagger: {
-            amount: 1.25,
-            from: 'end',
-          },
-          repeat: -1,
-          yoyo: true,
-          yoyoEase: true,
-          duration: 4,
-        },
+      gsap.from(this.reactorCore.nativeElement, {
+        transformOrigin: '50% 50%',
+        scale: 1.45,
+        duration: 2,
+        ease: 'back',
+        repeat: -1,
+        yoyo: true,
+        yoyoEase: true,
       });
-
-      backdrop.fromTo(
-        grads,
-        {
-          opacity: 0,
-          fill: 'cyan',
-        },
-        {
-          opacity: 1,
-          fill: '#DBFF01',
-          scaleX: 0.0125,
-          scaleY: 2,
-        }
-      );
-
-      gsap.fromTo(
-        this.reactorCore.nativeElement,
-        {
-          y: -4,
-          x: -4,
-        },
-        {
-          y: 4,
-          x: 4,
-          ease: 'power2.inOut',
-          repeat: -1,
-          duration: 1,
-          yoyo: true,
-        }
-      );
 
       gsap.to(this.core.nativeElement, {
         attr: {
@@ -94,15 +57,35 @@ export class SvgObjectComponent implements AfterViewInit {
         yoyo: true,
       });
 
+      const rotator = gsap.timeline({
+        defaults: {
+          duration: 3,
+          ease: 'power1.inOut',
+          repeat: -1,
+          yoyo: true,
+          yoyoEase: true,
+        },
+      });
+
+      rotator
+        .to(this.circle.nativeElement, {
+          rotate: 95,
+        })
+        .to(this.circle.nativeElement, {
+          rotate: 0,
+        })
+        .to(this.circle.nativeElement, {
+          rotate: -180,
+        });
+
       const staggering = gsap.timeline({
         defaults: {
           transformOrigin: '50% 50%',
           ease: 'power2.inOut',
-          duration: 0.95,
+          duration: 0.75,
           repeat: -1,
           stagger: 0.0125,
-          //yoyo: true,
-          // yoyoEase: true,
+          yoyo: true,
         },
       });
 
@@ -119,7 +102,7 @@ export class SvgObjectComponent implements AfterViewInit {
               d: 'M426 241C426 343.173 343.173 426 241 426C138.827 426 56 343.173 56 241',
             },
           },
-          0.175
+          0.25
         )
         .to(
           svgPaths2,
@@ -128,7 +111,7 @@ export class SvgObjectComponent implements AfterViewInit {
               d: 'M350 240.5C350 180.577 301.423 132 241.5 132C181.577 132 133 180.577 133 240.5',
             },
           },
-          0
+          0.025
         )
         .to(
           svgPaths3,
@@ -137,15 +120,7 @@ export class SvgObjectComponent implements AfterViewInit {
               d: 'M426 241C426 138.827 343.173 56 241 56C138.827 56 56 138.827 56 241',
             },
           },
-          0.175
-        )
-        .to(
-          this.circle.nativeElement,
-          {
-            rotate: 360,
-            duration: 4,
-          },
-          0.185
+          0.275
         );
     });
   }
