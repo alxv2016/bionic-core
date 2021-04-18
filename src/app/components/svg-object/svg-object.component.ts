@@ -37,15 +37,15 @@ export class SvgObjectComponent implements AfterViewInit {
       defaults: {
         repeat: -1,
         yoyo: true,
-        // duration: 2.75,
       },
     });
 
     core
       .to(this.glimmer.nativeElement, {
         attr: {
-          offset: 0.45,
+          offset: 0.5,
         },
+        duration: 0.95,
       })
       .to(
         this.core.nativeElement,
@@ -53,7 +53,7 @@ export class SvgObjectComponent implements AfterViewInit {
           scale: 1.45,
           transformOrigin: 'center',
           ease: 'elastic',
-          duration: 0.75,
+          duration: 2.25,
         },
         0.125
       )
@@ -72,7 +72,7 @@ export class SvgObjectComponent implements AfterViewInit {
           stagger: 0.175,
           opacity: 1,
           ease: 'elastic',
-          duration: 0.75,
+          duration: 2.25,
         },
         0
       );
@@ -90,7 +90,7 @@ export class SvgObjectComponent implements AfterViewInit {
         attr: {
           d: 'M230 393C139.978 393 67 320.022 67 230C67 139.978 139.978 67 230 67',
         },
-        stagger: 0.275,
+        stagger: 0.175,
       })
       .to(
         slices2,
@@ -98,8 +98,7 @@ export class SvgObjectComponent implements AfterViewInit {
           attr: {
             d: 'M230 393C320.022 393 393 320.022 393 230C393 139.978 320.022 67 230 67',
           },
-          opacity: 0.75,
-          stagger: 0.275,
+          stagger: 0.175,
         },
         0
       );
