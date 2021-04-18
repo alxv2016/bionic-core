@@ -80,7 +80,7 @@ export class SvgObjectComponent implements AfterViewInit {
     const slices = gsap.timeline({
       defaults: {
         ease: 'power2.inOut',
-        duration: 2.45,
+        duration: 1.95,
         repeat: -1,
       },
     });

@@ -3,7 +3,7 @@ This is a series of SVG animation experiments conducted using the GSAP library t
 
 ## Demo
 You can view the demo here:
-[Core Reactor](https://corereactor.alxvtoronto.com/)
+[Bionic Core](https://bionic.alxvtoronto.com/)
 
 ## Take aways
 1. Using GSAP animation the "Angular way"
